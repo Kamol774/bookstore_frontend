@@ -1,47 +1,48 @@
 import React from 'react';
-import './css/app.css';
 import { Box, Button, Container, Stack, Typography } from '@mui/material';
-import { Link, Route, Switch } from 'react-router-dom';
-import { Users } from './app/screens/Users';
-import { About } from './app/screens/About';
+import { Link, Route, Switch, useLocation } from 'react-router-dom';
+import { HomePage } from './app/screens/homePage';
+import { ProductsPage } from './app/screens/productsPage';
+import { UserPage } from './app/screens/userPage';
+import { OrdersPage } from './app/screens/ordersPage';
+import { HomeNavbar } from './app/components/headers/HomeNavbar';
+import { OtherNavbar } from './app/components/headers/OtherNavbar';
+import { Footer } from './app/components/footer';
+import './css/app.css';
+import "./css/navbar.css";
+import { HelpPage } from './app/screens/helpPage';
 
 function App() {
+  const location = useLocation();
+  console.log("location", location)
   return (
-    <div>
-      <nav>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/about">About</Link>
-          </li>
-          <li>
-            <Link to="/users">Users</Link>
-          </li>
-        </ul>
-      </nav>
+    <>
+      {location.pathname === "/" ? <HomeNavbar /> : <OtherNavbar />}
 
-      {/* A <Switch> looks through its children <Route>s and
+      <Switch> {/* A <Switch> looks through its children <Route>s and
       renders the first one that matches the current URL. */}
-      <Switch>
-        <Route path="/about">
-          <About />
+        <Route path="/products">
+          <ProductsPage />
         </Route>
-        <Route path="/users">
-          <Users />
+        <Route path="/orders">
+          <OrdersPage />
+        </Route>
+        <Route path="/member-page">
+          <UserPage />
+        </Route>
+        <Route path="/help">
+          <HelpPage />
         </Route>
         <Route path="/">
-          <Home />
+          <HomePage />
         </Route>
       </Switch>
-    </div>
+      <Footer />
+    </>
   )
 }
 
-function Home() {
-  return <Container>Home</Container>;
-}
+
 
 
 export default App;
